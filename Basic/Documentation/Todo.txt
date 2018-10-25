@@ -1,0 +1,16 @@
+﻿Waardes
+- floating point lexer afmaken
+
+predefined constantes
+- zoals PI
+
+List
+- begin is er. Maar:
+    - elk statement moet eigen keyword schrijven
+    - tokens en functienamen zijn ook nog lastig
+    - List() functie toevoegen aan IExpressionNode is niet supermooi
+    - binary operators: evaluatie-order is verdwenen
+
+Execution
+- ontbrekende control statements
+- maken van positie iterator voor return-stack, for-next etc

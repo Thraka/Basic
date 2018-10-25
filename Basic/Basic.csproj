@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Parser\" />
+    <Folder Include="Statements\" />
+    <Folder Include="Expressions\" />
+    <Folder Include="Execute\" />
+    <Folder Include="Examples\" />
+    <Folder Include="Documentation\" />
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Functions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Functions\LenFunction.cs" />
+  </ItemGroup>
+</Project>
