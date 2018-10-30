@@ -9,11 +9,11 @@
            "type": "coreclr",
            "request": "launch",
            "preLaunchTask": "build",
-           "program": "${workspaceFolder}/bin/Debug/<target-framework>/<project-name.dll>",
+           "program": "${workspaceFolder}/Basic/bin/Debug/netcoreapp2.0/Basic.dll",
            "args": [],
            "cwd": "${workspaceFolder}",
            "stopAtEntry": false,
-           "console": "internalConsole"
+           "console": "integratedTerminal"
        },
         {
             "name": ".NET Core Launch (console)",
@@ -25,7 +25,7 @@
             "args": [],
             "cwd": "${workspaceFolder}/Basic",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
-            "console": "internalConsole",
+            "console": "integratedTerminal",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart"
         },

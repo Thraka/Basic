@@ -22,7 +22,8 @@ namespace Basic.Execute
         /// <summary>
         /// Standard BASIC directory
         /// </summary>
-        private string _defaultDirectory = "/Users/lsluis/Projects/Basic/Basic/Examples/";
+        //private string _defaultDirectory = "/Users/lsluis/Projects/Basic/Basic/Examples/";
+        private string _defaultDirectory = "/Users/leo/src/Basic/Basic/Examples/";
 
         /// <summary>
         /// ctor

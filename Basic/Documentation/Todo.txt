@@ -1,4 +1,11 @@
-﻿Waardes
+﻿Syntax
+- variable name achter "NEXT"
+- numeriek waardes falen: -3.425  8.84361E-04
+- negatieve getallen
+- INPUT statement met meer dan 1 variabele
+- dakje/power operator
+
+Waardes
 - floating point lexer afmaken
 
 predefined constantes
