@@ -258,7 +258,7 @@ namespace Basic.Parser
                             _sb.Append(ReadChar());
                             state = 1;
                         }
-                        else if (ch == 'e')
+                        else if (ch == 'e' || ch == 'E')
                         {
                             _sb.Append(ReadChar());
                             state = 3;
@@ -286,7 +286,7 @@ namespace Basic.Parser
                         {
                             _sb.Append(ReadChar());
                         }
-                        else if (ch == 'e')
+                        else if (ch == 'e' || ch == 'E')
                         {
                             _sb.Append(ReadChar());
                             state = 3;

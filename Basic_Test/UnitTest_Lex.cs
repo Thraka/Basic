@@ -45,6 +45,7 @@ namespace Basic_Test
             TestNumber("101    1 99   767 1234 98765");
             TestNumber("9");
             TestNumber("1 22  333      4444  55555    ");
+            TestNumber("4.93174E-04 3.141  .3143e1");
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Basic_Test
         {
             var expectedNumbers = input.Split(new char[] { ' ' })
                                        .Where(txt => !string.IsNullOrEmpty(txt))
-                                       .Select(txt => Int32.Parse(txt))
+                                       .Select(txt => Double.Parse(txt))
                                        .ToList();
 
             var lx = Lexer.Tokenize(input);
@@ -62,7 +63,7 @@ namespace Basic_Test
 
             Assert.IsTrue(allTokens.All(tk => tk.TokenType == TokenType.Number));
 
-            var actualNumbers = allTokens.Select(tk => Int32.Parse(tk.Text))
+            var actualNumbers = allTokens.Select(tk => Double.Parse(tk.Text))
                                          .ToList();
             Assert.IsTrue(expectedNumbers.SequenceEqual(actualNumbers));
         }
