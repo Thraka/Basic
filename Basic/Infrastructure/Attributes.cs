@@ -42,7 +42,7 @@ namespace Basic.Infrastructure
     {
         /// <summary>
         /// When true, the command is allowed inside a program
-        /// when false, only allowed are immediate statement.
+        /// when false, only allowed as immediate statement.
         /// </summary>
         public bool AllowInProgram { get; set; } = true;
 
