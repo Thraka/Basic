@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using Basic.Execute;
 using Basic.Expressions;
 using Basic.Infrastructure;
@@ -26,12 +27,17 @@ namespace Basic.Statements
 
         private void LoadFromFile(ExecutionContext ctx, string fileName)
         {
-            if (ProgramList.TryLoad(fileName, out ProgramList newProgram))
+            if (ProgramList.TryLoad(fileName, out ProgramList newProgram, out List<string> errorMessages))
             {
                 ctx.LoadNewProgram(newProgram);
             }
-
-            ctx.LoadNewProgram(newProgram);
+            else
+            {
+                foreach(var msg in errorMessages)
+                {
+                    Console.WriteLine(msg);
+                }
+            }
         }
 
         public void Parse(PartsParser p)

@@ -79,48 +79,61 @@ namespace Basic.Execute
         /// <summary>
         /// Load program from file
         /// </summary>
-        public static bool TryLoad(string fileName, out ProgramList newProgram)
+        public static bool TryLoad(string fileName, out ProgramList newProgram, out List<string> errorMessages)
+        {
+            var baseName = Path.GetFileNameWithoutExtension(fileName);
+            using (var inp = File.OpenText(fileName))
+            {
+                return TryLoadFromStream(inp, baseName, out newProgram, out errorMessages);
+            }
+        }
+
+        public static bool TryLoadFromString(string programText, out ProgramList newProgram, out List<string> errorMessages)
+        {
+            using(var inp = new StringReader(programText))
+            {
+                return TryLoadFromStream(inp, "<string>", out newProgram, out errorMessages);
+            }
+        }
+
+        private static bool TryLoadFromStream(TextReader inp, string baseName, out ProgramList newProgram, out List<string> errorMessages)
         {
             const int MaxErrors = 10;
 
             newProgram = new ProgramList();
-            int nrErrors = 0;
+            errorMessages = new List<string>();
                               
-            var baseName = Path.GetFileNameWithoutExtension(fileName);
-            using (var inp = File.OpenText(fileName))
+            var parser = new Parser.StatementParser(inp);
+
+            //while (!inp.EndOfStream)
+            while (inp.Peek() >= 0)
             {
-                var parser = new Parser.StatementParser(inp);
-
-                while (!inp.EndOfStream)
+                try
                 {
-                    try
-                    {
-                        var statements = parser.ParseLine();
+                    var statements = parser.ParseLine();
 
-                        if (parser.IsProgramLine)
-                        {
-                            newProgram.Insert(parser.LineNumber, statements);
-                        }
-                        else
-                        {
-                            throw new Exception("Immediate command in file");
-                        }
-                    }
-                    catch (BasicSyntaxException synEx)
+                    if (parser.IsProgramLine)
                     {
-                        nrErrors++;
-                        var loc = baseName + synEx.Location;
-                        Console.WriteLine($"{loc} : {synEx.Message}");
-                        if (nrErrors > MaxErrors)
-                        {
-                            Console.WriteLine("(Too many errors, quiting)");
-                            break;
-                        }
+                        newProgram.Insert(parser.LineNumber, statements);
+                    }
+                    else
+                    {
+                        throw new Exception("Immediate command in file");
+                    }
+                }
+                catch (BasicSyntaxException synEx)
+                {
+                    var loc = baseName + synEx.Location;
+                    errorMessages.Add($"{loc} : {synEx.Message}");
+                    if (errorMessages.Count > MaxErrors)
+                    {
+                        errorMessages.Add("(Too many errors, quiting)");
+                        break;
                     }
                 }
             }
 
-            return (nrErrors == 0);
+            return (errorMessages.Count == 0);
         }
 
         /// <summary>

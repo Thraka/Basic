@@ -73,6 +73,8 @@ namespace Basic.Parser
                 _currentLineNumber = lineNumber;
             }
 
+            if (_partsParser.Eoln) return statements;
+            
             try
             {
                 while (TryParseStatement(out IStatement newStatement))

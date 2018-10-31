@@ -288,8 +288,8 @@ namespace Basic.Parser
             {
                 case TokenType.Minus:
                     _lex.MoveNext();
-                    expr = new NumericUnaryExpression(TokenType.Minus, ParseTop());
-                    break;
+                    // no _lx.ReadToken() required: ParseTop() already does that.
+                    return new NumericUnaryExpression(TokenType.Minus, ParseTop());
                 case TokenType.Number:
                     expr = new LiteralNode(Value.CreateNumber(_lex.Current.Text));
                     break;
