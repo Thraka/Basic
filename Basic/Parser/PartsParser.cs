@@ -263,9 +263,28 @@ namespace Basic.Parser
         /// </summary>
         private IExpressionNode ParseMultiplication()
         {
-            var expr = ParseFactor();
+            var expr = ParseExponent();
 
             while (TokenType.IsMultiplication())
+            {
+                var savedToken = TokenType;
+                _lex.MoveNext();
+                var right = ParseExponent();
+
+                expr = new NumericBinaryExpression(savedToken, expr, right);
+            }
+
+            return expr;
+        }
+
+        /// <summary>
+        /// exponentiation
+        /// </summary>
+        private IExpressionNode ParseExponent()
+        {
+            var expr = ParseFactor();
+
+            while (TokenType.IsExponent())
             {
                 var savedToken = TokenType;
                 _lex.MoveNext();

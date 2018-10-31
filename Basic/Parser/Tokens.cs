@@ -13,6 +13,7 @@ namespace Basic.Parser
         Minus,          //  '-'
         Mul,            //  '*'
         Div,            //  '/'
+        Exponent,
 
         Less,           //  '<'
         LessEQ,         //  '<='
@@ -37,6 +38,11 @@ namespace Basic.Parser
 
     public static class TokenExt
     {
+        public static bool IsExponent(this TokenType tokenType)
+        {
+            return  (tokenType == TokenType.Exponent);
+        }
+
         public static bool IsMultiplication(this TokenType tokenType)
         {
             return  (tokenType == TokenType.Mul) ||

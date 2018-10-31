@@ -23,6 +23,7 @@ namespace Basic.Parser
             {'/', TokenType.Div},
             {'-', TokenType.Minus},
             {'*', TokenType.Mul},
+            {'^', TokenType.Exponent},
             {'=', TokenType.EQ},
             {'\n',TokenType.Eoln},
             {';', TokenType.PrintItemSep}

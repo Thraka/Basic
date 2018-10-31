@@ -163,6 +163,9 @@ namespace Basic.Expressions
                     }
                     result = leftValue / rightValue;
                     break;
+                case TokenType.Exponent:
+                    result = Math.Pow(leftValue, rightValue);
+                    break;
 
                 // Relational operators
                 case TokenType.Less:

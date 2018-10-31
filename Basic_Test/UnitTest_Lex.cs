@@ -15,10 +15,10 @@ namespace Basic_Test
             var expected = new List<TokenType>() {
                 TokenType.ParenOpen,    TokenType.Comma,        TokenType.ParenClose,
                 TokenType.Plus,         TokenType.StatementSep, TokenType.Mul,
-                TokenType.Minus,        TokenType.Div
+                TokenType.Minus,        TokenType.Div,          TokenType.Exponent
             };
 
-            var lx = Lexer.Tokenize("  ( ,)+: * -   /");
+            var lx = Lexer.Tokenize("  ( ,)+: * -   /  ^");
             var allTokens = lx.Select(tok => tok.TokenType).ToList();
 
             Assert.IsTrue(expected.SequenceEqual(allTokens));
@@ -45,7 +45,7 @@ namespace Basic_Test
             TestNumber("101    1 99   767 1234 98765");
             TestNumber("9");
             TestNumber("1 22  333      4444  55555    ");
-            TestNumber("4.93174E-04 3.141  .3143e1");
+            TestNumber("4.93174E-04 3.141  .3143e1 1e2");
         }
 
         /// <summary>

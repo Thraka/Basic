@@ -71,6 +71,13 @@ namespace Basic_Test
             TestHelper.TestNumericExpression("(1 + 1) * (5 - 3)", 4);
             TestHelper.TestNumericExpression("(2) * (((1) + 3))", 8);
             TestHelper.TestNumericExpression("(((1 + 1))) * ((((5) - 3)))", 4);
-        } 
+        }
+
+        [TestMethod]
+        public void Parser_Exponent()
+        {
+            TestHelper.TestNumericExpression("(1+2)^2", 9);
+            TestHelper.TestNumericExpression("(1+2)^(3-1)", 9);
+        }
     }
 }
