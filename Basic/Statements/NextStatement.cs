@@ -13,19 +13,26 @@ namespace Basic.Statements
     [BasicStatement("NEXT", "Next")]
     public class NextStatement : IStatement
     {
+        ///
+        /// Optional variable name. If supplied, must match inner FOR name
+        private string _varName = null;
+
         public void Execute(ExecutionContext ctx)
         {
-            ctx.ExecutionUnit.Next();
+            ctx.ExecutionUnit.Next(_varName);
         }
 
         public void List(TextWriter output)
         {
-            output.Write("NEXT");
+            output.Write($"NEXT {_varName ?? String.Empty}");
         }
 
         public void Parse(PartsParser p)
         {
-            // nothing to parse
+            if (!p.EndOfStatement && p.TokenIsOfType(TokenType.Identifier))
+            {
+                _varName = p.ReadIdentifier();
+            }
         }
     }
 }

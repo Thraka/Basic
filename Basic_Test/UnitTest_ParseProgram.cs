@@ -36,5 +36,18 @@ namespace Basic_Test
             Assert.IsTrue(isOK);
             Assert.AreEqual(0, errorMessages.Count);
         }
+                
+        [TestMethod]
+        public void ParseProgram_NextVars()
+        {
+            const string ProgramText = @"10 FOR I=1 TO 10
+                20 NEXT I
+            ";
+
+            var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
+
+            Assert.IsTrue(isOK);
+            Assert.AreEqual(0, errorMessages.Count);
+        }
     }
 }

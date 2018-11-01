@@ -42,8 +42,12 @@ namespace Basic.Statements
             _endValueX = endValue;
         }
 
-        internal bool TryNext()
+        internal bool TryNext(string optionalVariableName)
         {
+            if (!string.IsNullOrEmpty(optionalVariableName) && optionalVariableName != _varName)
+            {
+                throw new BasicRuntimeException($"NEXT variable '{optionalVariableName}' does not match FOR variable '{_varName}'");
+            }
             if (!_ctx.Variables.TryGetVariable(_varName, out Value currentValue))
             {
                 throw new Exception($"Cannot find for-next  variable '{_varName}'");

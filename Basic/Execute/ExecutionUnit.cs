@@ -177,14 +177,14 @@ namespace Basic.Execute
         /// <summary>
         /// end-of-statement: increment and loop back 
         /// </summary>
-        internal void Next()
+        internal void Next(string optionalVariableName)
         {
             if (!_forNextStack.TryPeek(out var x))
             {
                 throw new BasicRuntimeException("Next: FOR statement not available");
             }
 
-            if (x.Item1.TryNext())
+            if (x.Item1.TryNext(optionalVariableName))
             {
                 _pc = x.Item2;
             }
