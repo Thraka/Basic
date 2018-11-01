@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Collections.Generic;
 using Basic.Execute;
 using Basic.Expressions;
 using Basic.Infrastructure;
@@ -10,35 +11,44 @@ namespace Basic.Statements
     [BasicStatement("INPUT", "Read a number from console")]
     public class InputStatement : IStatement
     {
-        private string _varName;
+        private string _optionalCaption = string.Empty;
+        private List<string> _variables = new List<string>();
+
 
         public void Execute(ExecutionContext ctx)
         {
             var line = Console.ReadLine();
 
-            if (_varName.EndsWith('$'))
-            {
-                ctx.Variables.Set(_varName, Value.CreateString(line));
-            }
-            else
-            {
-                if (Numbers.TryStringToNumber(line.Trim(), out double number))
-                {
-                    throw new BasicRuntimeException($"INPUT: not an number, line='{line}'");
-                }
-
-                ctx.Variables.Set(_varName, Value.CreateNumber(number));
-             }
+            throw new Exception("Dit werkt niet..");
         }
 
         public void List(TextWriter output)
         {
-            output.Write($"INPUT {_varName}");
+            output.Write($"INPUT");
         }
 
         public void Parse(PartsParser p)
         {
-            _varName = p.ReadIdentifier();
+            if (p.TokenIsOfType(TokenType.String))
+            {
+                _optionalCaption = p.ReadStringLiteral();
+
+                if (!p.TokenIsOfType(TokenType.Comma))
+                {
+                    throw new BasicSyntaxException("',' expected after INOUT prompt");
+                }
+                p.NextToken();
+            }
+
+            while (p.TokenIsOfType(TokenType.Identifier))
+            {
+                _variables.Add(p.ReadIdentifier());
+                
+                if (p.TokenIsOfType(TokenType.Comma))
+                {
+                    p.NextToken();
+                }
+            }
         }
     }
 }

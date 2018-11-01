@@ -49,5 +49,18 @@ namespace Basic_Test
             Assert.IsTrue(isOK);
             Assert.AreEqual(0, errorMessages.Count);
         }
+                        
+        [TestMethod]
+        public void ParseProgram_Input()
+        {
+            const string ProgramText = @"10 INPUT ""met een prompt"",A
+                20 INPUT A,B,C
+            ";
+
+            var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
+
+            Assert.IsTrue(isOK);
+            Assert.AreEqual(0, errorMessages.Count);
+        }
     }
 }

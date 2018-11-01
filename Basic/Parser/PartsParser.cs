@@ -136,6 +136,22 @@ namespace Basic.Parser
         }
 
         /// <summary>
+        /// Current token must be an string literal, read it
+        /// </summary>
+        internal string ReadStringLiteral()
+        {
+            if (TokenType != TokenType.String)
+            {
+                throw new BasicSyntaxException("String literal expected");
+            }
+
+            var literal = _lex.Current.Text;
+            _lex.MoveNext();
+
+            return literal;
+        }
+
+        /// <summary>
         /// expect a context-specific keyword. example: THEN after IF
         /// </summary>
         internal void ReadContextualKeyword(string keyword)
