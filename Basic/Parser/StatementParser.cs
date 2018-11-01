@@ -85,7 +85,7 @@ namespace Basic.Parser
                     if (_partsParser.Eof) break;
                     if (!_partsParser.EndOfStatement)
                     {
-                        throw new BasicSyntaxException("Garbage at end of line");
+                        throw new BasicSyntaxException($"Did not expect '{_partsParser.TokenText}'");
                     }
 
                     bool isEoln = _partsParser.Eoln;

@@ -108,7 +108,7 @@ namespace Basic.Parser
             // single-char tokens
             if (_singleCharTokens.TryGetValue(ch, out TokenType singleToken))
             {
-                Current = new Token() { Text = string.Empty, TokenType = singleToken };
+                Current = new Token() { Text = new string(ch, 1), TokenType = singleToken };
                 return true;
             }
 
