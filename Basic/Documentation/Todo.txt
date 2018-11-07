@@ -1,14 +1,14 @@
-﻿Syntax
+﻿Issues
 - variable name achter "NEXT"
 - INPUT statement met meer dan 1 variabele
 - INPUT statement kan initiele prompt string hebben.
 - IF/THEN kan nu alleen regelnummer aan, geen andere statements
-
-Waardes
-- floating point lexer afmaken
-
-predefined constantes
-- zoals PI
+- elk statement nalopen of implementatie klopt met syntax
+- tests: string expressies
+- tests: alle functies
+- tests: executie v/e programma.
+- array
+- samenhang executionunit / executioncontext is warrig
 
 List
 - begin is er. Maar:
@@ -16,7 +16,3 @@ List
     - tokens en functienamen zijn ook nog lastig
     - List() functie toevoegen aan IExpressionNode is niet supermooi
     - binary operators: evaluatie-order is verdwenen
-
-Execution
-- ontbrekende control statements
-- maken van positie iterator voor return-stack, for-next etc
