@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Basic.Expressions;
+using Basic.Functions;
 using Basic.Infrastructure;
 using Basic.Statements;
 
@@ -18,6 +19,8 @@ namespace Basic.Execute
         public ExecutionUnit ExecutionUnit { get; private set; } = new ExecutionUnit();
 
         public TextWriter Output { get; private set; } = Console.Out;
+
+        public List<UserFunction> UserFunctions { get;private set;} = new List<UserFunction>();
 
         /// <summary>
         /// Standard BASIC directory
@@ -47,6 +50,7 @@ namespace Basic.Execute
         {
             Variables.Reset();
             ExecutionUnit.Reset();
+            UserFunctions = new List<UserFunction>();
         }
 
         /// <summary>

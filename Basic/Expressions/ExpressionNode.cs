@@ -347,4 +347,42 @@ namespace Basic.Expressions
             output.Write(")");
         }
     }
+
+      internal class UserFunctionExpression : IExpressionNode
+    {
+        private UserFunction _function;
+        private List<IExpressionNode> _params;
+
+        /// <summary>
+        /// ctor
+        /// </summary>
+        internal UserFunctionExpression(UserFunction userFun, List<IExpressionNode> parameters)
+        {
+            _function = userFun;
+            _params = parameters;
+        }
+
+        public Value Evaluate(ExecutionContext ctx)
+        {
+            var paramValues = _params.Select(p => p.Evaluate(ctx)).ToList();
+
+            
+        }
+
+        public void List(TextWriter output)
+        {
+            output.Write($"{_function.FunctionName}(");
+
+            foreach(var p in _params)
+            {
+                p.List(output);
+                if (p != _params.LastOrDefault())
+                {
+                    output.Write(",");
+                }
+            }
+
+            output.Write(")");
+        }
+    }
 }

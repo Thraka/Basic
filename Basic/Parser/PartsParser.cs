@@ -180,16 +180,54 @@ namespace Basic.Parser
 
 
         /// <summary>
-        /// A specific token is expected but do not care about exact format.
+        /// A specific token is expected
         /// </summary>
-        internal void ReadToken(TokenType expectedType)
+        internal Token ReadToken(TokenType expectedType, string customMsg = null)
         {
             if (TokenType != expectedType)
             {
-                throw new BasicSyntaxException($"Token {expectedType} expected");
+                throw new BasicSyntaxException(customMsg ?? $"Token {expectedType} expected");
+            }
+        
+            var savedToken = _lex.Current;
+            _lex.MoveNext();
+            return savedToken;
+        }
+
+        /// <summary>
+        /// Parses formal parameter list:
+        //  PARAMLIST := '(' PARAMS? ')'
+        /// PARAMS := PARAM | PARAM ',' PARAMS
+        /// </summary>
+        internal List<string> ReadFormalParameterList()
+        {
+            var paramNames = new List<string>();
+
+            ReadToken(TokenType.ParenOpen, "Expected '('");
+
+            while (_lex.Current.TokenType == TokenType.Identifier)
+            {
+                paramNames.Add(_lex.Current.Text.ToUpperInvariant());
+
+                _lex.MoveNext();
+                if (_lex.Current.TokenType != TokenType.Comma) break;
+
+                _lex.MoveNext();
             }
 
+            if (_lex.Current.TokenType != TokenType.ParenClose)
+            {
+                throw new BasicSyntaxException("Expected ')'");
+            }
             _lex.MoveNext();
+            
+            return paramNames;
+        }
+
+        internal Expression ReadAssignment()
+        {
+            ReadToken(TokenType.EQ);
+            return ReadExpression();
         }
 
         /// <summary>
@@ -334,12 +372,16 @@ namespace Basic.Parser
                 case TokenType.Identifier:
                     if (_functions.TryGetValue(_lex.Current.Text, out FunctionTypeInfo functionInfo))
                     {
-                        // function-call
+                        // call to built-in function
                         expr = ParseFunction(functionInfo);
+                    }
+                    else if (IsUserFunctionName(_lex.Current.Text))
+                    {
+                        expr = ParseFunction(null);
                     }
                     else if (_lex.Peek() == '(')
                     {
-                        // input is ID '(' : probably call to unknonw function 'ID'
+                        // input is ID '(' : probably call to unknown function 'ID'
                         throw new BasicSyntaxException($"Unknown function {_lex.Current.Text}");
                     }
                     else
@@ -365,6 +407,30 @@ namespace Basic.Parser
             _lex.MoveNext();
 
             return expr;
+        }
+
+        /// <summary>
+        /// identifier is call to a user-defined function "DEF FNX"; functionname is X
+        /// </summary>
+        internal string ReadUserFunctionName()
+        {
+            if (_lex.Current.TokenType != TokenType.Identifier || !IsUserFunctionName(_lex.Current.Text))
+            {
+                throw new BasicSyntaxException("User-function name expected");
+            }
+
+            var functionName = _lex.Current.Text.Substring(2, 1);
+            _lex.MoveNext();
+
+            return functionName;
+        }
+
+        private bool IsUserFunctionName(string identifier)
+        {
+            return !string.IsNullOrEmpty(identifier) &&
+                    identifier.Length == 3 &&
+                    identifier.StartsWith("FN", StringComparison.InvariantCultureIgnoreCase) &&
+                    Char.IsLetter(identifier[2]);
         }
 
         /// <summary>
