@@ -47,6 +47,22 @@ namespace Basic_Test
         }
 
         [TestMethod]
+        public void Parser_Associativity()
+        {
+            TestHelper.TestNumericExpression("10-3-2", 5);
+            TestHelper.TestNumericExpression("(10-3)-2", 5);
+            TestHelper.TestNumericExpression("10-(3-2)", 9);
+
+            TestHelper.TestNumericExpression("100/10/2", 5);
+            TestHelper.TestNumericExpression("(100/10)/2", 5);
+            TestHelper.TestNumericExpression("100/(10/2)", 20);
+ 
+            TestHelper.TestNumericExpression("5^3^2", 1953125);
+            TestHelper.TestNumericExpression("(5^3)^2", 15625);
+            TestHelper.TestNumericExpression("5^(3^2)", 1953125); 
+        }
+
+        [TestMethod]
         public void Parser_Relational()
         {
             TestHelper.TestNumericExpression("1 < 2", 1);

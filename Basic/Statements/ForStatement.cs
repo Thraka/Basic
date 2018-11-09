@@ -27,7 +27,7 @@ namespace Basic.Statements
         public void Execute(ExecutionContext ctx)
         {
             Value value = _initValue.Evaluate(ctx);
-            Value endValue = _initValue.Evaluate(ctx);
+            Value endValue = _endValue.Evaluate(ctx);
 
             if (!value.IsNumber || !endValue.IsNumber)
             {
