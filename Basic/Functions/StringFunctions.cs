@@ -66,17 +66,25 @@ namespace Basic.Functions
         {
             string text = paramValues[0].GetRequiredString();
             int index = paramValues[1].GetRequiredInt();
-            int count = (paramValues.Count == 2) ? (text.Length - index) : paramValues[2].GetRequiredInt();
+            int count = (paramValues.Count == 3) ? paramValues[2].GetRequiredInt() : text.Length;
 
-            if (index < 1 || index > text.Length)
+            if (index < 1)
             {
                 throw new BasicRuntimeException("MID: start position is invalid");
             }
-            index--;    // 1-based -> 0-based
-
-            if (count < 0 || count > text.Length - index)
+            if (count < 0)
             {
                 throw new BasicRuntimeException("MID: count is invalid");
+            }
+
+            index--;    // 1-based -> 0-based
+            if (index >= text.Length)
+            {
+                return Value.CreateString(string.Empty);
+            }
+            if (count > text.Length - index)
+            {
+                count = text.Length - index;
             }
 
             return Value.CreateString(text.Substring(index, count));

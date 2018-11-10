@@ -39,12 +39,16 @@ namespace Basic_Test
             TestHelper.TestStringExpression("MID$('abcde', 3)", "cde");
             TestHelper.TestStringExpression("MID$('abcde', 1)", "abcde");
             TestHelper.TestStringExpression("MID$('', 1)", "");
-            TestHelper.TestStringExpression("MID$('abcde', 100)", "abcde");
+            TestHelper.TestStringExpression("MID$('abcde', 5)", "e");
+            TestHelper.TestStringExpression("MID$('abcde', 6)", "");
+            TestHelper.TestStringExpression("MID$('abcde', 100)", "");
 
             TestHelper.TestStringExpression("MID$('abcde', 3, 2)", "cd");
             TestHelper.TestStringExpression("MID$('abcde', 1, 3)", "abc");
             TestHelper.TestStringExpression("MID$('', 1, 1)", "");
-            TestHelper.TestStringExpression("MID$('abcde', 100, 100)", "abcde");
+            TestHelper.TestStringExpression("MID$('abcde', 3, 20)", "cde");
+            TestHelper.TestStringExpression("MID$('abcde', 5, 100)", "e");
+            TestHelper.TestStringExpression("MID$('abcde', 6, 100)", "");
 
             Assert.Throws<BasicRuntimeException>(() => TestHelper.TestStringExpression("mid$('abcde', 0)", "abcde"));
             Assert.Throws<BasicRuntimeException>(() => TestHelper.TestStringExpression("mid$('abcde', 1, -10)", "abcde"));
