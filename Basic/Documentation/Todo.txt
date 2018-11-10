@@ -16,3 +16,7 @@ List
     - tokens en functienamen zijn ook nog lastig
     - List() functie toevoegen aan IExpressionNode is niet supermooi
     - binary operators: evaluatie-order is verdwenen
+
+
+See for reference
+http://www.vintage-basic.net/downloads/Vintage_BASIC_Users_Guide.html#mozTocId839205

@@ -4,14 +4,13 @@ using System.Linq;
 using Basic.Execute;
 using Basic.Expressions;
 using Basic.Parser;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Basic_Test
 {
-    [TestClass]
     public class UnitTest_ParseProgram
     {
-        [TestMethod]
+        [Fact]
         public void ParseProgram_Simple()
         {
             const string ProgramText = @"10 A=-3.141E2
@@ -20,11 +19,11 @@ namespace Basic_Test
 
             var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
 
-            Assert.IsTrue(isOK);
-            Assert.AreEqual(0, errorMessages.Count);
+            Assert.True(isOK);
+            Assert.Empty(errorMessages);
         }
         
-        [TestMethod]
+        [Fact]
         public void ParseProgram_Exponent()
         {
             const string ProgramText = @"10 V0=100:R=2:A1=9
@@ -33,11 +32,11 @@ namespace Basic_Test
 
             var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
 
-            Assert.IsTrue(isOK);
-            Assert.AreEqual(0, errorMessages.Count);
+            Assert.True(isOK);
+            Assert.Empty(errorMessages);
         }
                 
-        [TestMethod]
+        [Fact]
         public void ParseProgram_NextVars()
         {
             const string ProgramText = @"10 FOR I=1 TO 10
@@ -46,11 +45,11 @@ namespace Basic_Test
 
             var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
 
-            Assert.IsTrue(isOK);
-            Assert.AreEqual(0, errorMessages.Count);
+            Assert.True(isOK);
+            Assert.Empty(errorMessages);
         }
                         
-        [TestMethod]
+        [Fact]
         public void ParseProgram_Input()
         {
             const string ProgramText = @"10 INPUT ""met een prompt"",A
@@ -59,8 +58,8 @@ namespace Basic_Test
 
             var isOK = ProgramList.TryLoadFromString(ProgramText, out ProgramList newProgram, out List<string> errorMessages);
 
-            Assert.IsTrue(isOK);
-            Assert.AreEqual(0, errorMessages.Count);
+            Assert.True(isOK);
+            Assert.Empty(errorMessages);
         }
     }
 }

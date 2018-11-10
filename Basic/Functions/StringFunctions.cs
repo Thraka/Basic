@@ -42,6 +42,14 @@ namespace Basic.Functions
             string text = paramValues[0].GetRequiredString();
             int maxLen = paramValues[1].GetRequiredInt();
 
+            if (maxLen > text.Length)
+            {
+                maxLen = text.Length;
+            }
+            if (maxLen < 0)
+            {
+                throw new BasicRuntimeException("Expected non-negative length for `LEFT' function");
+            }
             return Value.CreateString(text.Substring(0, maxLen));
         }
  
@@ -80,11 +88,14 @@ namespace Basic.Functions
             string text = paramValues[0].GetRequiredString();
             int count = paramValues[1].GetRequiredInt();
 
-            if (count < 0 || count > text.Length)
+            if (count < 0)
             {
                 throw new BasicRuntimeException("RIGHT: count is invalid");
             }
-
+            if (count > text.Length)
+            {
+                count = text.Length;
+            }
             return Value.CreateString(text.Substring(text.Length - count, count));
         }
 

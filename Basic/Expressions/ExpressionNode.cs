@@ -366,7 +366,7 @@ namespace Basic.Expressions
         {
             var paramValues = _params.Select(p => p.Evaluate(ctx)).ToList();
 
-            
+            return Value.CreateNumber(0);
         }
 
         public void List(TextWriter output)

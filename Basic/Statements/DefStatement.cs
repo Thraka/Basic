@@ -25,7 +25,7 @@ namespace Basic.Statements
             output.Write($"DEF FN{_userFn.FunctionName}(");
 
             var lastParam = _userFn.FormalParameters.LastOrDefault();
-            foreach(var varName in _userFn.FormalParameters.)
+            foreach(var varName in _userFn.FormalParameters)
             {
                 output.Write($"{varName}");
                 if (varName != lastParam) output.Write(",");
@@ -42,7 +42,7 @@ namespace Basic.Statements
 
             var functionValue = p.ReadAssignment();
 
-            _userFn = new UserFunction(functionName, paramNames, functionName);
+            _userFn = new UserFunction(functionName, paramNames, functionValue);
         }
     }
 }

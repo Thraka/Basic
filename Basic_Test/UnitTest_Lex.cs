@@ -2,14 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Basic.Parser;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Basic_Test
 {
-    [TestClass]
-    public class UnitTest_Lex
+     public class UnitTest_Lex
     {
-        [TestMethod]
+        [Fact]
         public void Lexer_SingleChars()
         {
             var expected = new List<TokenType>() {
@@ -21,10 +20,10 @@ namespace Basic_Test
             var lx = Lexer.Tokenize("  ( ,)+: * -   /  ^");
             var allTokens = lx.Select(tok => tok.TokenType).ToList();
 
-            Assert.IsTrue(expected.SequenceEqual(allTokens));
+            Assert.True(expected.SequenceEqual(allTokens));
         }
 
-        [TestMethod]
+        [Fact]
         public void Lexer_Relop()
         {
             var expected = new List<TokenType>() {
@@ -36,10 +35,10 @@ namespace Basic_Test
             var lx = Lexer.Tokenize("  <  >  <=   >=  =  <>   ");
             var allTokens = lx.Select(tok => tok.TokenType).ToList();
 
-            Assert.IsTrue(expected.SequenceEqual(allTokens));
+            Assert.True(expected.SequenceEqual(allTokens));
         }
 
-        [TestMethod]
+        [Fact]
         public void Lexer_Numbers()
         {
             TestNumber("101    1 99   767 1234 98765");
@@ -61,14 +60,14 @@ namespace Basic_Test
             var lx = Lexer.Tokenize(input);
             var allTokens = lx.ToList();
 
-            Assert.IsTrue(allTokens.All(tk => tk.TokenType == TokenType.Number));
+            Assert.True(allTokens.All(tk => tk.TokenType == TokenType.Number));
 
             var actualNumbers = allTokens.Select(tk => Double.Parse(tk.Text))
                                          .ToList();
-            Assert.IsTrue(expectedNumbers.SequenceEqual(actualNumbers));
+            Assert.True(expectedNumbers.SequenceEqual(actualNumbers));
         }
 
-        [TestMethod]
+        [Fact]
         public void Lexer_Strings()
         {
             TestString("\"101\"  |  \"1 \" | \"abcd\" ");
@@ -89,11 +88,11 @@ namespace Basic_Test
             var lx = Lexer.Tokenize(cleanedInput);
             var allTokens = lx.ToList();
 
-            Assert.IsTrue(allTokens.All(tk => tk.TokenType == TokenType.String));
+            Assert.True(allTokens.All(tk => tk.TokenType == TokenType.String));
 
             var actualStrings = allTokens.Select(tk => tk.Text)
                                          .ToList();
-            Assert.IsTrue(expectedStrings.SequenceEqual(actualStrings));
+            Assert.True(expectedStrings.SequenceEqual(actualStrings));
         }
 
         private static string StripDoubleQuotes(string txt)
@@ -105,7 +104,7 @@ namespace Basic_Test
             return txt.Substring(1, txt.Length - 2);
         }
 
-        [TestMethod]
+        [Fact]
         public void Lexer_Identifiers()
         {
             TestIdentifiers("a abc abcde i");
@@ -126,11 +125,11 @@ namespace Basic_Test
             var lx = Lexer.Tokenize(input);
             var allTokens = lx.ToList();
 
-            Assert.IsTrue(allTokens.All(tk => tk.TokenType == TokenType.Identifier));
+            Assert.True(allTokens.All(tk => tk.TokenType == TokenType.Identifier));
 
             var actualIDs = allTokens.Select(tk => tk.Text)
                                      .ToList();
-            Assert.IsTrue(expectedIDs.SequenceEqual(actualIDs));
+            Assert.True(expectedIDs.SequenceEqual(actualIDs));
         }
    }
 }

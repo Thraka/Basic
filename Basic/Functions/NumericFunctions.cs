@@ -43,10 +43,10 @@ namespace Basic.Functions
             return Math.Exp(input);
         }
 
-        [BasicFunction("INT", "Rounds a number")]
+        [BasicFunction("INT", "Floor")]
         public static double Int(double input)
         {
-            return Math.Round(input);
+            return Math.Floor(input);
         }
 
         [BasicFunction("LOG", "Logarithm")]

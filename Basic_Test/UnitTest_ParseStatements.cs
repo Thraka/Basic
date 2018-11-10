@@ -4,53 +4,52 @@ using System.Linq;
 using Basic.Execute;
 using Basic.Expressions;
 using Basic.Parser;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Basic_Test
 {
-    [TestClass]
     public class UnitTest_ParseStatements
     {
-        [TestMethod]
+        [Fact]
         public void Parser_Let()
         {
             var parser = new StatementParser("let a = 9");
 
             var statements = parser.ParseLine();
 
-            Assert.IsFalse(parser.IsProgramLine);
-            Assert.AreEqual(statements.Count, 1);
+            Assert.False(parser.IsProgramLine);
+            Assert.Equal(1, statements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void Parser_Run()
         {
             var parser = new StatementParser("run");
             var statements = parser.ParseLine();
 
-            Assert.IsFalse(parser.IsProgramLine);
-            Assert.AreEqual(statements.Count, 1);
+            Assert.False(parser.IsProgramLine);
+            Assert.Equal(1, statements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void MultiStatements()
         {
             var parser = new StatementParser("let a=1+2:let b=1:print (a+b)");
             var statements = parser.ParseLine();
 
-            Assert.IsFalse(parser.IsProgramLine);
-            Assert.AreEqual(3, statements.Count);
+            Assert.False(parser.IsProgramLine);
+            Assert.Equal(3, statements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void Test_ProgramLine()
         {
             var parser = new StatementParser("20 let a=1+2:let b=1:print (a+b)");
             var statements = parser.ParseLine();
 
-            Assert.IsTrue(parser.IsProgramLine);
-            Assert.AreEqual(20, parser.LineNumber);
-            Assert.AreEqual(3, statements.Count);
+            Assert.True(parser.IsProgramLine);
+            Assert.Equal(20, parser.LineNumber);
+            Assert.Equal(3, statements.Count);
         }
     }
 }
