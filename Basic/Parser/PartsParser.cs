@@ -337,17 +337,32 @@ namespace Basic.Parser
         private IExpressionNode ParseExponent()
         {
             var expr = ParseFactor();
+            if (!TokenType.IsExponent())
+            {
+                return expr;
+
+            }
+
+            // exponent has right-associativity
+            Stack<IExpressionNode>  factors = new Stack<IExpressionNode>();
+            factors.Push(expr);
 
             while (TokenType.IsExponent())
             {
                 var savedToken = TokenType;
                 _lex.MoveNext();
-                var right = ParseFactor();
+                factors.Push(ParseFactor());
 
-                expr = new NumericBinaryExpression(savedToken, expr, right);
+             }
+
+            while(factors.Count > 1)
+            {
+                var right = factors.Pop();
+                var left = factors.Pop();
+                factors.Push(new NumericBinaryExpression(TokenType.Exponent, left, right));
             }
-
-            return expr;
+    
+            return factors.Pop();
         }
 
         /// <summary>
