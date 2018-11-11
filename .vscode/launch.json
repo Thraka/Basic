@@ -9,7 +9,7 @@
            "type": "coreclr",
            "request": "launch",
            "preLaunchTask": "build",
-           "program": "${workspaceFolder}/Basic/bin/Debug/netcoreapp2.0/Basic.dll",
+           "program": "${workspaceFolder}/Basic/bin/Debug/netcoreapp2.1/Basic.dll",
            "args": [],
            "cwd": "${workspaceFolder}",
            "stopAtEntry": false,
@@ -21,7 +21,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/Basic/bin/Debug/netcoreapp2.0/Basic.dll",
+            "program": "${workspaceFolder}/Basic/bin/Debug/netcoreapp2.1/Basic.dll",
             "args": [],
             "cwd": "${workspaceFolder}/Basic",
             // For more information about the 'console' field, see https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md#console-terminal-window
